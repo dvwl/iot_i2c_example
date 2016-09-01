@@ -1,0 +1,133 @@
+﻿<Page
+    x:Class="iot_i2c_example.Pages.Page_Configuration"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:iot_i2c_example.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#BFFF" CornerRadius="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Pane -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+                <Image Name="Btn_AddRoom" Tapped="Btn_AddRoom_Tapped" Height="48" Margin="0,0,20,0" Source="ms-appx:///Resources/Image/Toolbar/Add_48.png"/>
+                <Image Name="Btn_RemoveRoom" Tapped="Btn_RemoveRoom_Tapped" Height="48" Margin="20,0,0,0" Source="ms-appx:///Resources/Image/Toolbar/Remove_48.png"/>
+            </StackPanel>
+
+            <ListBox Name="LB_Rooms" DisplayMemberPath="Name" Tapped="LB_Rooms_Tapped" Grid.Row="1" Margin="20,0,20,20" Width="300" Background="Transparent"/>
+        </Grid>
+
+        <!-- Right Pane -->
+        <Border Grid.Column="1" Background="White" CornerRadius="10" Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Room Name and I2C Address -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Name="Txt_RoomName" FontSize="30" Margin="10" ToolTipService.ToolTip="Room Name"/>
+                    <TextBox Name="Txt_RoomI2CAddress" FontSize="30" Grid.Column="1" Margin="10" Width="200" ToolTipService.ToolTip="I2C Slave Address"/>
+                </Grid>
+
+                <!-- Image Pane -->
+                <ListView Name="LV_RoomImage" Grid.Row="1" Margin="10">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Margin="10" Source="{Binding Path=ImagePath}" Width="70" Height="70"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- Devices Pane -->
+                <Border Grid.Row="2" Background="#eee" CornerRadius="20" Margin="10" Height="Auto">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="5">
+                                <Image Name="Btn_AddDevice" Tapped="Btn_AddDevice_Tapped" Height="40" Margin="5" Source="ms-appx:///Resources/Image/Toolbar/Add_48.png"/>
+                                <Image Name="Btn_RemoveDevice" Tapped="Btn_RemoveDevice_Tapped" Height="40" Margin="5" Source="ms-appx:///Resources/Image/Toolbar/Remove_48.png"/>
+                            </StackPanel>
+                            <ListBox Name="LB_Devices" DisplayMemberPath="Name" Tapped="LB_Devices_Tapped" Margin="10"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Name="txt_DeviceName" Margin="5" ToolTipService.ToolTip="Device Name"/>
+                                <ComboBox Name="cmb_DevicePin" Grid.Column="1" Margin="5" Width="90" ToolTipService.ToolTip="Device Pin">
+                                    <ComboBoxItem>D2</ComboBoxItem>
+                                    <ComboBoxItem>D3</ComboBoxItem>
+                                    <ComboBoxItem>D4</ComboBoxItem>
+                                    <ComboBoxItem>D5</ComboBoxItem>
+                                    <ComboBoxItem>D6</ComboBoxItem>
+                                    <ComboBoxItem>D7</ComboBoxItem>
+                                    <ComboBoxItem>D8</ComboBoxItem>
+                                    <ComboBoxItem>D9</ComboBoxItem>
+                                    <ComboBoxItem>D10</ComboBoxItem>
+                                    <ComboBoxItem>D11</ComboBoxItem>
+                                    <ComboBoxItem>D12</ComboBoxItem>
+                                    <ComboBoxItem>D13</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                            <ListView Name="LV_DeviceImage" Grid.Row="1" Margin="10">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Margin="10" Source="{Binding Path=ImagePath}" Height="70"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- Save Button -->
+                <TextBlock Name="Status_TB" Grid.Row="3" VerticalAlignment="Center" Text="" Margin="10" FontSize="20"/>
+                <Image Name="Btn_Save" Tapped="Btn_Save_Tapped" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Height="32" Source="ms-appx:///Resources/Image/Toolbar/File_Save.png"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
